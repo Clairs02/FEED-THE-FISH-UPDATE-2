@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+html {
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+body {
+  display: flex;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background: url('images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  overflow: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#fish-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+}
+
+.fish-row {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  pointer-events: none;
+}
+
+.fish {
+  position: absolute;
+  height: 100%;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.fish.swim {
+  animation-name: swim;
+}
+
+.fish.dance {
+  animation-name: dance;
+  animation-duration: 0.25s;
+}
+
+.fish.collision {
+  animation-name: collision;
+  animation-iteration-count: 1;
+}
+
+.fish.sad {
+  animation-name: sad;
+  animation-iteration-count: 1;
+}
+
+.fish.left {
+  left: 0;
+}
+
+.fish.right {
+  right: 0;
+}
+
+.fish.left.centered {
+  left: calc(50% - 120px);
+}
+
+.fish.right.centered {
+  right: calc(50% - 240px);
+}
+
+.fish-image {
+  height: 80%;
+  transition-property: transform;
+  transition-duration: 0.25s;
+  pointer-events: none;
+}
+
+.fish-image.mirrored {
+  transform: scaleX(-1);
+}
+
+.fish-image.big {
+  height: 200%;
+}
+
+@keyframes swim {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(3px) rotate(2deg);
+  }
+}
+
+@keyframes dance {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(10px) rotate(10deg);
+  }
+}
+
+@keyframes collision {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  33% {
+    transform: translateY(-20px) rotate(0deg);
+  }
+
+  66% {
+    transform: translateY(20px) rotate(0deg);
+  }
+}
+
+@keyframes sad {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(45deg);
+  }
+}
+
+.fish-number {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  color: white;
+  font-family: Avenir;
+  font-weight: 500;
+}
+
+.fish-number.big {
+  font-size: 5em;
+  line-height: 2em;
+}
+
+/* Platz für untere Leisten */
+#fish-container::after {
+  content: "";
+  display: block;
+  height: 120px;
+}
+
+/* Anzeige unten: Punkte + Nummern */
+.point-display, .number-display {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  z-index: 10;
+}
+
+.food {}
+
+.food.hidden {
+  display: none;
+}
+
+#message {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  font-family: 'Bungee', cursive;
+  font-weight: normal;
+  color: transparent;
+  background: none;
+  background-image: linear-gradient(45deg, orange, deepskyblue, sienna);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  text-shadow: none;
+  z-index: 20;
+  pointer-events: none;
+}
+
+#message.hidden {
+  display: none;
+}
+
+/* Bubbles sichtbar machen */
+.bubble {
+  position: fixed;
+  width: 15px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: bubble-rise 10s linear infinite, bubble-wobble 3s ease-in-out infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(-10vh) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bubble-wobble {
+  0%, 100% {
+    transform: translateX(0px) scale(1);
+  }
+
+  50% {
+    transform: translateX(2px) scale(1.05);
+  }
+}
+
+/* Unterwasser-Lichteffekt */
+#fish-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 80%);
+  animation: light-move 6s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes light-move {
+  0% {
+    transform: translateY(0);
+    opacity: 0.05;
+  }
+
+  50% {
+    transform: translateY(-20px);
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 0.05;
+  }
+}
