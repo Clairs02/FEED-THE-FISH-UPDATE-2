@@ -1,0 +1,28 @@
+{
+  "name": "multiplayer-fish-game",
+  "version": "1.0.0",
+  "description": "A multiplayer fish game where players control fish to collect food and score points.",
+  "main": "src/server/server.js",
+  "scripts": {
+    "start": "node src/server/server.js",
+    "client": "webpack --config webpack.client.js",
+    "server": "nodemon src/server/server.js"
+  },
+  "dependencies": {
+    "ws": "^8.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.0.0",
+    "webpack-cli": "^4.0.0",
+    "nodemon": "^2.0.0"
+  },
+  "keywords": [
+    "multiplayer",
+    "game",
+    "fish",
+    "websocket"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
